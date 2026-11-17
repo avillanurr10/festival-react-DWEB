@@ -1,0 +1,26 @@
+{
+  "name": "festival-react-dweb",
+  "version": "1.0.0",
+  "description": "Mi repo para el festival de React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avillanurr10/festival-react-DWEB.git"
+  },
+  "keywords": [
+    "dweb",
+    "dam",
+    "2b",
+    "festival",
+    "msanz"
+  ],
+  "author": "Andoni Villanueva <avillanurr@educacion.navarra.es>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avillanurr10/festival-react-DWEB/issues"
+  },
+  "homepage": "https://github.com/avillanurr10/festival-react-DWEB#readme"
+}
