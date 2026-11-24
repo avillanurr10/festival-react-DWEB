@@ -32,22 +32,14 @@ El comentario de línea en `App.jsx` identifica los datos ficticios. El comentar
 
 ## Pruebas realizadas
 
-- **Error de sintaxis.** Se extrajo el objeto real de `App.jsx` y se comprobó con Node que quitar la coma tras `'Órbita Violeta'` produce un `SyntaxError`. Con la coma restaurada, el mismo objeto se evalúa correctamente. El código entregado contiene la coma.
-- **Cambio del artista.** Se evaluó el objeto con `'Bruma Solar'` en lugar de `'Órbita Violeta'` y se comprobó que cambia el valor de `artista`. La comprobación visual de la tarjeta queda pendiente.
-- **Arranque y construcción.** Se intentaron `npm install`, `npm run dev` y `npm run build`. La instalación falló con `ENOTFOUND registry.npmjs.org` y los dos scripts quedaron bloqueados al faltar Vite.
-
-## Comprobaciones pendientes en el navegador
-
-Después de instalar las dependencias y arrancar Vite, registra el resultado observado de cada paso.
-
-| Herramienta o prueba | Acción y resultado esperado |
-| --- | --- |
-| Elements | Inspecciona `article.concierto`. Localiza el `h3` con el artista y desmarca momentáneamente el fondo de la tarjeta en Styles. |
-| Console | Pulsa **Probar clic** y busca `Clic de prueba: Órbita Violeta`. Comprueba que el mismo texto aparece en la tarjeta. |
-| Sources | Abre `src/ConciertoCard.jsx`, coloca un punto de interrupción en la primera línea de `probarClic` y activa el botón. Comprueba la variable `artista` y reanuda la ejecución. |
-| Network | Recarga con la pestaña abierta. Selecciona la petición de `/src/main.jsx` y comprueba el estado HTTP y el JavaScript de la respuesta. |
-| React Developer Tools | En Components, selecciona `ConciertoCard` y despliega `props → concierto`. Debe contener `artista`, `genero` y `horario`. Elements muestra el DOM resultante, por ejemplo el texto del `h3` y el elemento `time`, mientras que Components muestra el objeto original que recibe React. |
-| Cambio de artista | Cambia el artista en el objeto de `App.jsx` a `Bruma Solar`. Guarda y comprueba que cambian el encabezado y el mensaje del siguiente clic. Restaura el dato original después de la prueba. |
-| Construcción | Ejecuta `npm run build` y revisa que se genere `dist/`. |
+- **Error de sintaxis.** Al quitar la coma tras `artista: 'Bruma Solar'` y guardar, Vite mostró `Unexpected token, expected "," (8:2)` en `src/App.jsx`. El analizador señaló la línea de `genero`, donde esperaba la coma que separa las propiedades. La corrección consiste en reponer la coma al final de la línea de `artista`. La evaluación del objeto corregido ya se comprobó con Node.
+- **Cambio del artista.** Al sustituir `Órbita Violeta` por `Bruma Solar` en el objeto de `App.jsx`, la tarjeta mostró `Bruma Solar` y conservó `Indie pop` y `21:30`. Al pulsar el botón apareció `Clic de prueba: Bruma Solar`. En Components se comprobó el nuevo valor de `concierto.artista` y el mensaje en el estado del componente.
+- **Arranque en desarrollo.** Festival React cargó en `http://localhost:5173/`. Console mostró `[vite] connected.` y el cartel presentó Órbita Violeta, Indie pop y 21:30.
+- **Clic y Console.** Al pulsar **Probar clic**, apareció `Clic de prueba: Órbita Violeta` tanto en la tarjeta como en Console. La consola enlazó el mensaje a `ConciertoCard.jsx:13`. También se observó un 404 independiente para `favicon.ico`.
+- **Elements y Styles.** Se seleccionó `article.concierto` y se localizó el encabezado `<h3>Órbita Violeta</h3>`. Al desactivar `background: #251d35` en Styles, la tarjeta pasó a mostrar el fondo de la página y conservó el borde. El cambio se hizo en DevTools.
+- **Sources.** Se activó un punto de interrupción en `console.info(confirmacion)`, en la línea 13 de `ConciertoCard.jsx`. Al pulsar **Probar clic**, DevTools mostró **Paused on breakpoint**, resaltó esa línea dentro de `probarClic` y mostró la variable local `confirmacion` en Scope.
+- **Network.** Al recargar la página se localizó la petición `GET http://localhost:5173/src/main.jsx`, el módulo de entrada. En Headers se observó `304 Not Modified`. Vite confirmó que el recurso seguía vigente y el navegador reutilizó la copia en caché.
+- **React Developer Tools frente a Elements.** En Components se seleccionó `ConciertoCard`, hijo de `App`, y se desplegó la prop `concierto`. El objeto contenía `artista: "Órbita Violeta"`, `genero: "Indie pop"` y `horario: "21:30"`. Components muestra esos datos agrupados como una prop. En Elements se observó el DOM generado en `article.concierto`, con el artista como texto del `h3` y los detalles agrupados en un `dl`.
+- **Construcción.** `npm.cmd run build` terminó correctamente con Vite 7.1.12. Transformó 31 módulos y generó `dist/index.html` y los archivos CSS y JavaScript en `dist/assets/`. La compilación exitosa confirma que el archivo corregido pudo procesarse.
 
 [Guía de React y Vite en MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/React_getting_started)
