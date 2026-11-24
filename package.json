@@ -1,26 +1,19 @@
 {
   "name": "festival-react-dweb",
+  "private": true,
   "version": "1.0.0",
-  "description": "Mi repo para el festival de React",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/avillanurr10/festival-react-DWEB.git"
+  "dependencies": {
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
-  "keywords": [
-    "dweb",
-    "dam",
-    "2b",
-    "festival",
-    "msanz"
-  ],
-  "author": "Andoni Villanueva <avillanurr@educacion.navarra.es>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/avillanurr10/festival-react-DWEB/issues"
-  },
-  "homepage": "https://github.com/avillanurr10/festival-react-DWEB#readme"
+  "devDependencies": {
+    "@vitejs/plugin-react": "5.0.4",
+    "vite": "7.1.12"
+  }
 }
