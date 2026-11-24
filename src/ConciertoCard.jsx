@@ -3,15 +3,21 @@ import { useState } from 'react'
 export default function ConciertoCard({ concierto }) {
   const { artista, genero, horario } = concierto
   const [mensaje, setMensaje] = useState('')
+  const [clics, setClics] = useState(0)
 
-  /*
-   * El manejador se ejecuta al pulsar el botón.
-   * El estado actualiza el mensaje que muestra React.
-   */
   function probarClic() {
     const confirmacion = `Clic de prueba: ${artista}`
     console.info(confirmacion)
     setMensaje(confirmacion)
+  }
+  /*
+  *Con valor: le dices a React «pon el contador en 5».
+  *Con función: le dices «suma 1 al número que lleve el contador».
+
+  */
+
+  function contarClics() {
+    setClics(clics+1)
   }
 
   return (
@@ -27,7 +33,17 @@ export default function ConciertoCard({ concierto }) {
           <dd><time dateTime={horario}>{horario}</time></dd>
         </div>
       </dl>
-      <button type="button" onClick={probarClic}>Probar clic</button>
+
+      <button type="button" onClick={contarClics}>
+        Conteo de clics
+      </button>
+
+      <p>Has pulsado el boton {clics} veces</p>
+
+      <button type="button" onClick={probarClic}>
+        Probar clic
+      </button>
+
       <p className="mensaje" role="status">{mensaje}</p>
     </article>
   )
